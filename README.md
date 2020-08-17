@@ -1,60 +1,55 @@
 # Curso Kubernetes. Edición 2020
 
-Sesión 1: Despliegue de aplicaciones en contenedores (2 HORAS)
+Sesión 1: Despliegue de aplicaciones en contenedores. Introducción a k8s (Alberto)
 
 * Introducción a los contenedores
 * Arquitectura de microservicios
 * Tecnologías subyacentes y diferencias entre ellas: docker, cri-o, LXC, ...
 * Ciclo de vida en el despliegue de aplicaciones con docker
-
-Sesión 2: Introducción a kubernetes (2 HORAS)
-
 * Características, historia, estado actual del proyecto kubernetes (k8s)
 * Arquitectura básica de k8s
 * Alternativas para instalación simple de k8s: minikube, kubeadm, k3s
-* Instalación con minikube
-* Instalación y uso de kubectl
+
+Sesión 2: Despliegue de aplicaciones con k8s (I) (Jd)
+
 * Despliegue de aplicaciones con k8s
-
-Sesión 3: Despliegue de aplicaciones con k8s (1:30 HORAS)
-
 * Pods
 * ReplicaSet: Tolerancia y escalabilidad
 * Deployment: Actualizaciones y despliegues automáticos
-
-Sesión 4: Comunicación entre servicios y acceso desde el exterior (1:30 HORAS)
-
 * Services
+
+Sesión 3: Instalación de un cluster k8s (Alberto)
+
+* Arquitectura de k8s
+* Alternativas de instalación para un cluster de k8s
+* Proveedores cloud y kubernetes
+* Despliegue de un cluster con kubernetes
+
+Sesión 4: Despliegue de aplicaciones con k8s (II) (JD)
+
 * DNS
 * Ingress
 * Ejemplos de uso y despliegues
-
-Sesión 5: Configuración de aplicaciones (1 HORA)
-
-* Variables de entorno
-* ConfigMaps
-* Secrets
+* Configuración de aplicaciones: Variables de entorno, ConfigMaps, Secrets, ...
 * Ejemplo de despliegue parametrizado
+* StatefulSet
+* DaemonSet
+* AutoScale
+* Jobs, cronjobs
+* Helm
 
-Sesión 6: Almacenamiento en k8s (1:30 HORAS)
+Sesión 5: Almacenamiento en k8s (JD)
 
 * Consideraciones sobre el almacenamiento
 * PersistentVolume
 * PersistentVolumeClaim
 * Ejemplo de despliegue con volúmenes
 
-Sesión 7: Otros tipos de despliegues (1:30 HORAS)
-
-* StatefulSet
-* DaemonSet
-* AutoScale
-* Helm
-
-Sesión 8: Administración básica (1 HORA)
+Sesión 6: Administración básica y redes (Alberto)
 
 * Namespaces
 * Usuarios
 * RBAC
 * Cuotas y límites
+* Introducción a las redes en k8s
 
-Sesión 9: Instalación paso a paso ???
