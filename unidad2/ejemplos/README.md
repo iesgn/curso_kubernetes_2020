@@ -45,7 +45,7 @@ Para obtener las labels de los pods que hemos creado:
 
     kubectl get pods --show-labels
 
-Los Labels lo hemos definido en la sección metada del fichero yaml, pero también podemos añadirlos a los pods ya creados:
+Los Labels lo hemos definido en la sección `metadata` del fichero yaml, pero también podemos añadirlos a los pods ya creados:
 
     kubectl label pods nginx service=web --overwrite=true
 
