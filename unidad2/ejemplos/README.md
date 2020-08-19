@@ -177,3 +177,53 @@ Ahora vamos a desplegar una versión que da un error (versión no existe). ¿Pod
     kubectl port-forward deployment/guestbook 3000:3000
 
 
+## Ejemplo 7: Services
+
+**Service ClusterIP**
+
+    kubectl create -f deployment.yaml
+
+    kubectl create -f service_ci.yaml
+
+También podríamos haber creado el servicio sin usar el fichero yaml, de la siguiente manera:
+
+    kubectl expose deployment/nginx --port=80 --type=ClusterIP
+
+Podemos ver el servicio que hemos creado:
+
+    kubectl get svc
+
+Puede ser bueno acceder desde exterior, por ejemplo en la fase de desarrollo de una aplicación para probarla:
+
+    kubectl proxy
+
+Y accedemos a la URL:
+
+    http://localhost:8001/api/v1/namespaces/<NAMESPACE>/services/<SERVICE NAME>:<PORT NAME>/proxy/
+
+**Service NodePort**
+
+    kubectl create -f service_np.yaml
+
+También podríamos haber creado el servicio sin usar el fichero yaml, de la siguiente manera:
+
+    kubectl expose deployment/nginx --port=80 --type=NodePort
+
+Podemos ver el servicio que hemos creado:
+
+    kubectl get svc
+
+Desde el exterior accedemos a:
+
+    http://<IP_MASTER>:<PUERTO_ASIGNADO>
+
+
+
+## Ejemplo 8: guestbook (parte 2)
+
+    kubectl create -f frontend-deployment.yaml
+    kubectl create -f redis-master-deployment.yaml
+    kubectl create -f redis-slave-deployment.yaml
+    kubectl create -f frontend-srv.yam
+    kubectl create -f redis-master-srv.yaml
+    kubectl create -f redis-slave-srv.yaml
