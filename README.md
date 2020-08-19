@@ -10,7 +10,7 @@ Sesión 1: Despliegue de aplicaciones en contenedores. Introducción a k8s (Albe
 * Arquitectura básica de k8s
 * Alternativas para instalación simple de k8s: minikube, kubeadm, k3s
 
-Sesión 2: Despliegue de aplicaciones con k8s (I) (Jd)
+[Sesión 2: Despliegue de aplicaciones con k8s (I) (Jd)](unidad2)
 
 * Despliegue de aplicaciones con k8s
 * Pods
