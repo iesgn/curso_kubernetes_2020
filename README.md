@@ -25,7 +25,7 @@ Sesión 3: Instalación de un cluster k8s (Alberto)
 * Proveedores cloud y kubernetes
 * Despliegue de un cluster con kubernetes
 
-Sesión 4: Despliegue de aplicaciones con k8s (II) (JD)
+[Sesión 4: Despliegue de aplicaciones con k8s (II) (JD)](unidad4)
 
 * DNS
 * Ingress
