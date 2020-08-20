@@ -262,8 +262,12 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 
     $ while true; do wget -q -O- http://192.168.99.100:30372/; done
 
-    kubectl get pod -w
+    watch kubectl get pod
     kubectl get hpa -w
 
+## Ejemplo 12: HELM
+
+https://docs.bitnami.com/kubernetes/get-started-kubernetes/
+https://helm.sh/docs/intro/quickstart/
 
 
