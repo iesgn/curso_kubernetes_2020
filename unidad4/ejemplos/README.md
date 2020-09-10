@@ -1,4 +1,4 @@
-# Sesión 4: Despliegue de aplicaciones con k8s (II)
+# Unidad 4: Despliegue de aplicaciones con k8s (II)
 
 
 ## Ejemplo 1: DNS

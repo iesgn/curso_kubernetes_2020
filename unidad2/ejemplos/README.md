@@ -1,4 +1,4 @@
-# Sesión 2: Despliegue de aplicaciones con k8s (I)
+# Unidad 2: Despliegue de aplicaciones con k8s (I)
 
 ## Ejemplo 1: Pod
 
