@@ -1,4 +1,4 @@
 # Sesión 2: Despliegue de aplicaciones con k8s (I)
 
-* [Presentación de contenidos](presentacion_sesion2.pdf)
+* [Presentación de contenidos](presentacion_unidad2.pdf)
 * [Ejemplos](ejemplos)
