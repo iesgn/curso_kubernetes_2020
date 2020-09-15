@@ -1,13 +1,13 @@
 # Curso Kubernetes. Edición 2020
 
-Unidad 1: Despliegue de aplicaciones en contenedores. Introducción a k8s
+[Unidad 1: Despliegue de aplicaciones en contenedores. Introducción a k8s](unidad1)
 
 * Contenedores
 * Microservicios
 * Tecnologías subyacentes
 * Kubernetes (k8s)
 
-[Unidad 2: Despliegue de aplicaciones con k8s (I) (Jd)](unidad2)
+[Unidad 2: Despliegue de aplicaciones con k8s (I)](unidad2)
 
 * Despliegue de aplicaciones con k8s
 * Pods
@@ -22,7 +22,7 @@ Unidad 3: Instalación de un cluster k8s
 * Proveedores cloud y kubernetes
 * Despliegue de un cluster con kubernetes
 
-[Unidad 4: Despliegue de aplicaciones con k8s (II) (JD)](unidad4)
+[Unidad 4: Despliegue de aplicaciones con k8s (II)](unidad4)
 
 * DNS
 * Ingress
@@ -35,7 +35,7 @@ Unidad 3: Instalación de un cluster k8s
 * Jobs, cronjobs
 * Helm
 
-[Unidad 5: Almacenamiento en k8s (JD)](unidad5)
+[Unidad 5: Almacenamiento en k8s](unidad5)
 
 * Consideraciones sobre el almacenamiento
 * PersistentVolume
