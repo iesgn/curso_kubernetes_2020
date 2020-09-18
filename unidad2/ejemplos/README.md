@@ -148,6 +148,11 @@ Y comprobamos como se activa el antiguo ReplicaSet y se crean nuevos pods con la
 
     kubectl get rs
 
+Se puede volver a una revisión determinada poniendo el número:
+
+    kubectl rollout history deployment nginx            
+    kubectl rollout undo deployment nginx --to-revision=2
+    
 ## Ejemplo 5: mediaWiki
 
 Vamos a desplegar la aplicación mediawiki:

@@ -5,6 +5,8 @@ metadata:
   labels:
     app: mediawiki
 spec:
+  #strategy:
+  #  type: Recreate
   replicas: 3
   selector:
     matchLabels:
