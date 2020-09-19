@@ -289,19 +289,25 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 
     helm search repo 
 
-    helm install stable/wordpress --generate-name --set service.type=NodePort
+    helm install my-release bitnami/apache --set service.type=NodePort
+
+
+    helm search repo wordpress
+
+
+
+    helm install wp stable/wordpress --set service.type=NodePort
 
 Para más información de los parámetros al instalar el chart:
 
     https://github.com/helm/charts/tree/master/stable/wordpress
-
     ...
 
-    To access your WordPress site from outside the cluster follow the steps below:
+    MINIKUBE To access your WordPress site from outside the cluster follow the steps below:
 
     1. Get the WordPress URL by running these commands:
 
-       export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services wordpress-1600523378)
+       export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services wp-wordpress)
        export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
        echo "WordPress URL: http://$NODE_IP:$NODE_PORT/"
        echo "WordPress Admin URL: http://$NODE_IP:$NODE_PORT/admin"
@@ -311,7 +317,8 @@ Para más información de los parámetros al instalar el chart:
     3. Login with the following credentials below to see your blog:
 
       echo Username: user
-      echo Password: $(kubectl get secret --namespace default wordpress-1600523378 -o jsonpath="{.data.wordpress-password}" | base64 --decode)
+      echo Password: $(kubectl get secret --namespace default wp-wordpress -o jsonpath="{.data.wordpress-password}" | base64 --decode)
+
 
 
 ### Gestionar aplicación
