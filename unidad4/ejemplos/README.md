@@ -267,7 +267,55 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 
 ## Ejemplo 12: HELM
 
-https://docs.bitnami.com/kubernetes/get-started-kubernetes/
-https://helm.sh/docs/intro/quickstart/
+### Instalación de helm v3
 
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh
+
+### Inicializar repositorio de Chart
+
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+
+    helm repo list
+    NAME   	URL                                              
+    stable 	https://kubernetes-charts.storage.googleapis.com/
+    bitnami	https://charts.bitnami.com/bitnami         
+
+    helm repo update      
+
+### Instalación de chart
+
+    helm search repo 
+
+    helm install stable/wordpress --generate-name --set service.type=NodePort
+
+Para más información de los parámetros al instalar el chart:
+
+    https://github.com/helm/charts/tree/master/stable/wordpress
+
+    ...
+
+    To access your WordPress site from outside the cluster follow the steps below:
+
+    1. Get the WordPress URL by running these commands:
+
+       export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services wordpress-1600523378)
+       export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+       echo "WordPress URL: http://$NODE_IP:$NODE_PORT/"
+       echo "WordPress Admin URL: http://$NODE_IP:$NODE_PORT/admin"
+
+    2. Open a browser and access WordPress using the obtained URL.
+
+    3. Login with the following credentials below to see your blog:
+
+      echo Username: user
+      echo Password: $(kubectl get secret --namespace default wordpress-1600523378 -o jsonpath="{.data.wordpress-password}" | base64 --decode)
+
+
+### Gestionar aplicación
+
+    helm ls
+    helm uninstall <name>
 
