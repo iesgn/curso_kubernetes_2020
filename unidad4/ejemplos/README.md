@@ -13,7 +13,7 @@ Comprobando el servidor DNS:
     kubectl get services --namespace=kube-system
     kubectl exec -it busybox -- cat /etc/resolv.conf
 
-## Balanceo de carga
+## Ejemplo 2: Balanceo de carga
 
 Hemos creado una imagen docker que nos permite crear un contenedor con una aplicación PHP que muestra el nombre del servidor donde se ejecuta, el fichero index.php:
 
@@ -33,7 +33,11 @@ Al acceder hay que indicar el puerto asignado al servicio:
     Servidor:pagweb-84f6d54fb7-bhz4p
 
 
-## Ejemplo 2: Despliegue canary
+## Ejemplo 3: Servicio para acceder a servidor remoto
+
+
+
+## Ejemplo 4: Despliegue canary
 
 Creamos el servicio y el despliegue de la primera versión (5 réplicas):
 
@@ -58,12 +62,12 @@ Una vez que comprobamos que funciona bien, podemos escalar y eliminar la versió
     kubectl scale --replicas=5 deploy my-app-v2
     kubectl delete deploy my-app-v1
 
-## Ejemplo 3: ingress
+## Ejemplo 5: ingress
 
     kubectl create -f nginx-ingress.yaml 
     kubectl get ingress
 
-## Ejemplo 4: LetsChat
+## Ejemplo 6: LetsChat
 
     kubectl create -f letschat-deployment.yaml
     kubectl create -f mongo-deployment.yaml
@@ -74,7 +78,7 @@ Una vez que comprobamos que funciona bien, podemos escalar y eliminar la versió
     kubectl create -f ingress.yaml
 
 
-## Ejemplo 5: Variables de entorno
+## Ejemplo 7: Variables de entorno
 
 Podemos definir un Deployment que defina un contenedor configurado por medio de variables de entorno.
 
@@ -94,7 +98,7 @@ Y probamos si podemos acceder, introduciendo la contraseña configurada:
 
     kubectl exec -it mariadb-deployment-fc75f956-f5zlt -- mysql -u root -p
 
-## Ejemplo 6: ConfigMap
+## Ejemplo 8: ConfigMap
 
 ConfigMap te permite definir un diccionario (clave,valor) para guardar información que puedes utilizar para configurar una aplicación.
 
@@ -111,7 +115,7 @@ Creamos un deployment indicando los valores guardados en el ConfigMap:
     kubectl create -f mariadb-deployment-configmap.yaml
     kubectl exec -it mariadb-deploy-cm-57f7b9c7d7-ll6pv -- mysql -u usuario -p
 
-## Ejemplo 7: Secrets
+## Ejemplo 9: Secrets
 
 Los Secrets nos permiten guardar información sensible que será codificada. Por ejemplo,nos permite guarda contraseñas, claves ssh, …
 Al crear un Secret los valores se pueden indicar desde un directorio, un fichero o un literal.
@@ -125,7 +129,7 @@ Creamos el despliegue y probamos el acceso:
     kubectl create -f mariadb-deployment-secret.yaml
     kubectl exec -it mariadb-deploy-secret-f946dddfd-kkmlb -- mysql -u root -p
 
-## Ejemplo 8: Desplegando WordPress con MariaDB
+## Ejemplo 10: Desplegando WordPress con MariaDB
 
 mariadb
 
@@ -162,7 +166,7 @@ Por último creamos el recurso ingress que nos va a permitir el acceso a la apli
 
 
 
-## Ejemplo 9: StatefulSet
+## Ejemplo 11: StatefulSet
 
 Vamos a crear los distintos objetos de la API:
 
@@ -207,7 +211,7 @@ Comprobamos la identidad de red estable: Vemos los hostnames y los nombres DNS a
     Address 1: 172.17.0.5 web-1.nginx.default.svc.cluster.local
 
 
-## Ejemplo 10: DaemontSet
+## Ejemplo 12: DaemontSet
 
     kubectl get nodes                 
     NAME    STATUS   ROLES    AGE   VERSION
@@ -246,7 +250,7 @@ Podemos seleccionar los nodos en los que queremos que se ejecuten los pod por me
     logging-556r9   1/1     Running   0          7s    10.42.1.56   k3s-3   <none>           <none>
 
 
-## Ejemplo 11: Horizontal Pod AutoScaler
+## Ejemplo 13: Horizontal Pod AutoScaler
 
 Veamos un ejemplo: creamos un despliegue de una aplicación php y modificamos lo que va a reservar del CPU el pod (0,2 cores de CPU):
 
@@ -265,7 +269,7 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
     watch kubectl get pod
     kubectl get hpa -w
 
-## Ejemplo 12: HELM
+## Ejemplo 14: HELM
 
 ### Instalación de helm v3
 
