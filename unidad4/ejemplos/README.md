@@ -49,7 +49,7 @@ Comprobamos que el servicio está apuntando al endpoint:
 
 Creamos un pod con un cliente de mariadb y accedemos usando el nombre del servicio:
 
-    kubectl run mariadb --image=mariadb --env MYSQL_ROOT_PASSWORD=my-password
+cd .    kubectl run mariadb --image=mariadb --env MYSQL_ROOT_PASSWORD=my-password
 
     kubectl exec -it pod/mariadb -- mysql -u root -p -h mariadb.default.svc.cluster.local
 
@@ -80,6 +80,9 @@ Una vez que comprobamos que funciona bien, podemos escalar y eliminar la versió
 
 ## Ejemplo 5: ingress
 
+    minikube addons enable ingress
+    kubectl get pod -n kube-system
+    
     kubectl create -f nginx-ingress.yaml 
     kubectl get ingress
 
@@ -147,6 +150,12 @@ Creamos el despliegue y probamos el acceso:
 
 ## Ejemplo 10: Desplegando WordPress con MariaDB
 
+Se puede crear ficheros yaml con la opción `-o yaml` y `--dry-run=client`:
+
+Por ejemplo:
+
+    kubectl run pod nginx --image=nginx -o yaml --dry-run=client
+
 mariadb
 
     kubectl create secret generic mariadb-secret \
@@ -154,7 +163,7 @@ mariadb
                             --from-literal=dbname=wordpress \
                             --from-literal=dbpassword=password1234 \
                             --from-literal=dbrootpassword=root1234 \
-                            -o yaml --dry-run > mariadb-secret.yaml
+                            -o yaml --dry-run=client > mariadb-secret.yaml
 
     kubectl create -f mariadb-secret.yaml 
 
