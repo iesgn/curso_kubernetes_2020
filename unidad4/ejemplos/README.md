@@ -35,7 +35,23 @@ Al acceder hay que indicar el puerto asignado al servicio:
 
 ## Ejemplo 3: Servicio para acceder a servidor remoto
 
+Creamos el servicio:
 
+    kubectl create -f service.yaml
+
+Creamos el endpoint:
+
+    kubectl create -f endpoint.yaml
+
+Comprobamos que el servicio está apuntando al endpoint:
+
+    kubectl describe service mariadb
+
+Creamos un pod con un cliente de mariadb y accedemos usando el nombre del servicio:
+
+    kubectl run mariadb --image=mariadb --env MYSQL_ROOT_PASSWORD=my-password
+
+    kubectl exec -it pod/mariadb -- mysql -u root -p -h mariadb.default.svc.cluster.local
 
 ## Ejemplo 4: Despliegue canary
 
