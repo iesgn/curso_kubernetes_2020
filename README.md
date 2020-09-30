@@ -15,7 +15,7 @@
 * Deployment: Actualizaciones y despliegues automáticos
 * Services
 
-Unidad 3: Instalación de un cluster k8s
+[Unidad 3: Instalación de un cluster k8s](unidad3)
 
 * Arquitectura de k8s
 * Alternativas de instalación para un cluster de k8s
