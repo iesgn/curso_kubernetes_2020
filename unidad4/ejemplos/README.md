@@ -192,12 +192,16 @@ Vamos a crear los distintos objetos de la API:
 
     kubectl create -f service.yaml
 
-Creación ordenada de pods: En un terminal observamos la creación de pods y en otro terminal creamos los pods
+### Creación ordenada de pods
+
+En un terminal observamos la creación de pods y en otro terminal creamos los pods
 
     watch kubectl get pod
     kubectl create -f statefulset.yaml
 
-Comprobamos la identidad de red estable: Vemos los hostnames y los nombres DNS asociados:
+### Comprobamos la identidad de red estable
+
+Vemos los `hostname` y los nombres DNS asociados:
 
     for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
     web-0
@@ -211,7 +215,9 @@ Comprobamos la identidad de red estable: Vemos los hostnames y los nombres DNS a
     ...
     Address 1: 172.17.0.5 web-1.nginx.default.svc.cluster.local
 
-Creación  ordenada de pods: En un terminal observamos la creación de pods y en otro terminal eliminamos los pods
+### Eliminación de pods
+
+ En un terminal observamos la creación de pods y en otro terminal eliminamos los pods
 
     watch kubectl get pod
     kubectl delete pod -l app=nginx
@@ -219,17 +225,40 @@ Creación  ordenada de pods: En un terminal observamos la creación de pods y en
 Comprobamos la identidad de red estable: Vemos los hostnames y los nombres DNS asociados (Las IP pueden cambiar):
 
     for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
-    web-0
-    web-1
 
     kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
     / # nslookup web-0.nginx
-    ...
-    Address 1: 172.17.0.4 web-0.nginx.default.svc.cluster.local
     / # nslookup web-1.nginx
-    ...
-    Address 1: 172.17.0.5 web-1.nginx.default.svc.cluster.local
 
+### Escribiendo en los volúmenes persistentes
+
+Comprobamos que se han creado volúmenes para los pods:
+
+    kubectl get pv,pvc
+
+Escribimos en los documentroot y accedemos al servidor:
+
+    for i in 0 1; do kubectl exec "web-$i" -- sh -c 'echo "$(hostname)" > /usr/share/nginx/html/index.html'; done
+    for i in 0 1; do kubectl exec -i -t "web-$i" -- sh -c 'curl http://localhost/'; done
+    web-0
+    web-1
+
+Volvemos a eliminar los pods, y comprobamos que la información es persistente al estar guardadas en los volúmenes:
+
+    kubectl delete pod -l app=nginx
+    for i in 0 1; do kubectl exec -i -t "web-$i" -- sh -c 'curl http://localhost/'; done
+
+### Escalar statefulset
+
+Escalamos a más o menos pods:
+
+    kubectl scale sts web --replicas=5
+
+Comprobamos los pods y los volúmenes:
+
+    kubectl get pod,pv,pvc
+
+Si reducimos el número de pods los volúmenes no se eliminan.
 
 ## Ejemplo 12: DaemontSet
 
