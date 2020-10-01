@@ -150,11 +150,6 @@ Creamos el despliegue y probamos el acceso:
 
 ## Ejemplo 10: Desplegando WordPress con MariaDB
 
-Se puede crear ficheros yaml con la opción `-o yaml` y `--dry-run=client`:
-
-Por ejemplo:
-
-    kubectl run pod nginx --image=nginx -o yaml --dry-run=client
 
 mariadb
 
