@@ -267,7 +267,7 @@ Para terminar eliminamos el statefulset y el service:
 Para borrar los volúmenes:
 
     kubectl delete --all pv,pvc
-    
+
 ## Ejemplo 12: DaemontSet
 
     kubectl get nodes                 
@@ -276,7 +276,7 @@ Para borrar los volúmenes:
     k3s-2   Ready    <none>   17d   v1.14.1-k3s.4
     k3s-3   Ready    <none>   17d   v1.14.1-k3s.4
 
-    kubectl create -f /tmp/ds.yaml
+    kubectl create -f ds.yaml
 
     kubectl get pods -o wide      
     NAME            READY   STATUS    RESTARTS   AGE   IP       NODE
@@ -287,7 +287,7 @@ Para borrar los volúmenes:
 
 Podemos seleccionar los nodos en los que queremos que se ejecuten los pod por medio de un selector.
 
-    kubectl create -f /tmp/ds2.yaml
+    kubectl create -f ds2.yaml
 
     kubectl get pods -o wide      
     No resources found.
