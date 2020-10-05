@@ -260,6 +260,14 @@ Comprobamos los pods y los volúmenes:
 
 Si reducimos el número de pods los volúmenes no se eliminan.
 
+Para terminar eliminamos el statefulset y el service:
+
+    kubectl delete -f .
+
+Para borrar los volúmenes:
+
+    kubectl delete --all pv,pvc
+    
 ## Ejemplo 12: DaemontSet
 
     kubectl get nodes                 
