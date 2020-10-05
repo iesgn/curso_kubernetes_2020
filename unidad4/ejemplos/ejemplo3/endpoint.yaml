@@ -6,5 +6,5 @@ subsets:
  - addresses:
      - ip: 137.74.161.90
    ports:
-     - port: 3360
+     - port: 3306
 

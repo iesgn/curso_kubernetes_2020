@@ -49,7 +49,7 @@ Comprobamos que el servicio está apuntando al endpoint:
 
 Creamos un pod con un cliente de mariadb y accedemos usando el nombre del servicio:
 
-cd .    kubectl run mariadb --image=mariadb --env MYSQL_ROOT_PASSWORD=my-password
+    kubectl apply -f mariadb-deployment.yaml 
 
     kubectl exec -it pod/mariadb -- mysql -u root -p -h mariadb.default.svc.cluster.local
 
