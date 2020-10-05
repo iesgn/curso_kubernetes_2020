@@ -337,7 +337,6 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 
 ### Inicializar repositorio de Chart
 
-    helm repo add stable https://kubernetes-charts.storage.googleapis.com/
     helm repo add bitnami https://charts.bitnami.com/bitnami
 
     helm repo list
@@ -350,8 +349,9 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 ### Instalación de chart
 
     helm search repo 
+    
 
-    helm install my-release bitnami/apache --set service.type=NodePort
+    helm install my-release bitnami/nginx --set service.type=NodePort
 
 
     helm search repo wordpress

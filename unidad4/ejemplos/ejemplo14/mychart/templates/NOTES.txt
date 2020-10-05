@@ -1,0 +1,24 @@
+Chart de nginx de José Domingo
+
+1. Para acceder a nginx puedes usar el nombre de dominio indicado, para obtenerlo:
+
+   NGINX URL: http://{{ .Values.domain.name }}
+
+
+{{- if contains "ClusterIP"  .Values.service.type }}
+
+2. Has configurado el servicio de tipo ClusterIP, para acceder:
+
+    export SERVICE_PORT=$(kubectl get  -o jsonpath="{.spec.ports[0].port}" services nginx)
+    kubectl port-forward  svc/nginx 80${SERVICE_PORT}:${SERVICE_PORT} &
+    echo "http://127.0.0.1:80${SERVICE_PORT}"
+
+{{- else if contains "NodePort" .Values.service.type }}
+
+2. Has configurado el servicio de tipo NodePort, para acceder:
+
+    export NODE_PORT=$(kubectl get  -o jsonpath="{.spec.ports[0].nodePort}" services nginx)
+    export NODE_IP=$(kubectl get nodes  -o jsonpath="{.items[0].status.addresses[0].address}")
+    echo "http://${NODE_IP}:${NODE_PORT}"
+
+{{- end }}
