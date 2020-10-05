@@ -51,7 +51,7 @@ Creamos un pod con un cliente de mariadb y accedemos usando el nombre del servic
 
     kubectl apply -f mariadb-deployment.yaml 
 
-    kubectl exec -it pod/mariadb -- mysql -u root -p -h mariadb.default.svc.cluster.local
+    kubectl exec -it pod/mariadb -- mysql -u prueba -p -h mariadb.default.svc.cluster.local
 
 ## Ejemplo 4: Despliegue canary
 
