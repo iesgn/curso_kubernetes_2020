@@ -321,7 +321,8 @@ Creamos el recurso hpa, indicando el mínimo y máximos de pods que va a terner 
 
 Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se comporta:
 
-    $ while true; do wget -q -O- http://192.168.99.100:30372/; done
+    service=$(minikube service php-apache --url)
+    while true; do wget -q -O- "$service"; done
 
     watch kubectl get pod
     kubectl get hpa -w
@@ -387,3 +388,4 @@ Para más información de los parámetros al instalar el chart:
     helm ls
     helm uninstall <name>
 
+https://hub.helm.sh/charts/bitnami/nginx
