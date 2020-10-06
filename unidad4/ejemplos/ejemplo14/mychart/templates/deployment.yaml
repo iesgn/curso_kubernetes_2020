@@ -9,7 +9,7 @@ spec:
   revisionHistoryLimit: 2
   strategy:
     type: RollingUpdate
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: nginx

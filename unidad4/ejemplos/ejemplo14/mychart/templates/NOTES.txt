@@ -2,7 +2,7 @@ Chart de nginx de José Domingo
 
 1. Para acceder a nginx puedes usar el nombre de dominio indicado, para obtenerlo:
 
-   NGINX URL: http://{{ .Values.domain.name }}
+   NGINX URL: http://{{.Values.ingress.hostname }}
 
 
 {{- if contains "ClusterIP"  .Values.service.type }}

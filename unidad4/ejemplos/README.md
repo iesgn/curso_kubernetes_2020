@@ -341,7 +341,6 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 
     helm repo list
     NAME   	URL                                              
-    stable 	https://kubernetes-charts.storage.googleapis.com/
     bitnami	https://charts.bitnami.com/bitnami         
 
     helm repo update      
@@ -349,43 +348,45 @@ Vamos a hacer una prueba de estrés a nuestra aplicación y observamos cómo se 
 ### Instalación de chart
 
     helm search repo 
+
+    helm search repo nginx
     
-
-    helm install my-release bitnami/nginx --set service.type=NodePort
-
-
-    helm search repo wordpress
+    helm install server_web bitnami/nginx --set service.type=NodePort
 
 
-
-    helm install wp stable/wordpress --set service.type=NodePort
-
-Para más información de los parámetros al instalar el chart:
-
-    https://github.com/helm/charts/tree/master/stable/wordpress
-    ...
-
-    MINIKUBE To access your WordPress site from outside the cluster follow the steps below:
-
-    1. Get the WordPress URL by running these commands:
-
-       export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services wp-wordpress)
-       export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
-       echo "WordPress URL: http://$NODE_IP:$NODE_PORT/"
-       echo "WordPress Admin URL: http://$NODE_IP:$NODE_PORT/admin"
-
-    2. Open a browser and access WordPress using the obtained URL.
-
-    3. Login with the following credentials below to see your blog:
-
-      echo Username: user
-      echo Password: $(kubectl get secret --namespace default wp-wordpress -o jsonpath="{.data.wordpress-password}" | base64 --decode)
-
-
-
-### Gestionar aplicación
+Listamos las aplicaciones instaladas
 
     helm ls
+
+Borramos la aplicación
+
+    helm delete server_web
+
+Vemos los recursos creados
+
+    helm status server_web
+
+Desinstalar aplicación:
+
     helm uninstall <name>
 
-https://hub.helm.sh/charts/bitnami/nginx
+### Crear nuestros propios charts
+
+    helm create mychart
+
+* En el directorio `templates` vamos a tener nuestros manifiestos yaml.
+* En estos manifiestos podemos parametrizar los valores de los distintas configuraciones. De este modo a la hora de instalar el chart podremos definir la configuracion.
+* Los valores por defecto de los parámetros indicados se indican en el fichero `values.yaml`.
+* En las platillas además de variables, podemos añadir control (if, loop, ...)
+
+Podemos comprobar los maniefiestos que se han creado a partir de las plantillas:
+
+    helm install --debug --dry-run mynginx ./mychart
+
+Para instalar nuestro chart, con los valores por defecto:
+
+    helm install mynginx ./mychart
+
+Tambien podemos indicar algunos de los parámetros:
+
+    helm install mynginx ./mychart --set replicaCount=3 --set service.type=NodePort --set ingress.hostname=mynginx.192.168.99.100.nip.io
