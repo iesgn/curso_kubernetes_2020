@@ -6,4 +6,8 @@ service:
 
 
 ingress:
-  hostname: nginx.192.168.99.100.nip.io  
+  enabled: true
+  hosts:
+    - host: nginx.192.168.99.100.nip.io  
+    - host: nginx2.192.168.99.100.nip.io  
+      

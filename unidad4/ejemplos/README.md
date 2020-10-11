@@ -389,4 +389,4 @@ Para instalar nuestro chart, con los valores por defecto:
 
 Tambien podemos indicar algunos de los parámetros:
 
-    helm install mynginx ./mychart --set replicaCount=3 --set service.type=NodePort --set ingress.hostname=mynginx.192.168.99.100.nip.io
+    helm install mynginx ./mychart --set replicaCount=3 --set service.type=NodePort --set ingress.hosts[0].host=mynginx.192.168.99.100.nip.io
