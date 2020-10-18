@@ -36,9 +36,6 @@ Creamos un pod con el volumen
 Accedemos el pod, instalamos curl y probamos a acceder al servidor web
 
     kubectl exec -it task-pv-pod -- /bin/bash
-
-    root@task-pv-pod:/# apt-get update
-    root@task-pv-pod:/# apt-get install curl
     root@task-pv-pod:/# curl localhost
     Hello from Kubernetes storage
 
@@ -86,3 +83,63 @@ Por la tanto si creamos un PersistantVolumenClaim, se creará de forma dinámica
 
     kubectl get all -n wordpress
 
+## Ejemplo 4: Gestión estática de almacenamiento en k3s
+
+En este caso el storage class por defecto en k3s tiene el parámetro VOLUMEBINDINGMODE=WaitForFirstConsumer:
+
+    kubectl get storageclass
+    NAME                   PROVISIONER                                   RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+    local-path (default)   rancher.io/local-path                         Delete          WaitForFirstConsumer   false                  6d3h
+
+Cuando creamos el PVC:
+
+    kubectl apply -f pvc.yaml
+
+No se crea el PV:
+
+    kubectl get pv,pvc
+
+Es decir el PV se creará cuando se utilice y se monte en un pod.
+
+    kubectl apply -f pod.yaml
+    kubectl get pod,pv,pvc
+
+Para ver los detalles del volumen:
+
+    kubectl describe persistentvolume/pvc-6ad5e59c-6b96-4e7f-b157-d48c4418c2c3
+
+## Ejemplo 5
+
+Vamos a trabajar con un cluster con tres workers desarrollado con k3s:
+
+    export KUBECONFIG=~/.kube/k3s.yaml
+
+Hemos creado un provisionador dinámicos de volúmenes nfs:
+
+    kubectl config set-context default --namespace=nfs
+    helm install my-nfs --set nfs.server=192.168.122.19 --set nfs.path=/srv/volumen helm-stable/nfs-client-provisioner
+    kubectl config set-context default --namespace=default
+
+También hemos instalado el paquete `nfs-common` en los workers para que puedan montar los volúmenes nfs.
+
+Creamos el PVC:
+
+    kubectl apply -f pvc.yaml
+
+Creo el PVC:
+
+    kubectl apply -f pvc.yaml 
+    kubectl get pv,pvc
+
+Y creo el despliegue y el servicio:
+
+    kubectl apply -f deployment.yaml 
+    kubectl apply -f service_np.yaml 
+
+Escribo en el volumen:
+
+    kubectl exec deployment.apps/nginx -- sh -c 'echo "Hello Word!!!" > /usr/share/nginx/html/index.html'
+
+Y escalo el despliegue y sigo comprobando que todos los pods tienen montado el mismo volumen:
+
+    kubectl scale deploy/nginx --replicas=4 
