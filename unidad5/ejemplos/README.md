@@ -108,7 +108,7 @@ Para ver los detalles del volumen:
 
     kubectl describe persistentvolume/pvc-6ad5e59c-6b96-4e7f-b157-d48c4418c2c3
 
-## Ejemplo 5
+## Ejemplo 5: Gestión dinámica de almacenamiento en k3s
 
 Vamos a trabajar con un cluster con tres workers desarrollado con k3s:
 
@@ -143,3 +143,50 @@ Escribo en el volumen:
 Y escalo el despliegue y sigo comprobando que todos los pods tienen montado el mismo volumen:
 
     kubectl scale deploy/nginx --replicas=4 
+
+## Ejemplo 6: Liveness probe
+
+    kubectl apply -f pod.yaml
+
+Comprobamos que ha tenido reinicios, porque la prueba está fallando:
+
+    kubectl get all                     
+    NAME                READY   STATUS    RESTARTS   AGE
+    pod/liveness-http   1/1     Running   2          45s
+
+Podemos comprobar el estado del pod:
+
+    kubectl describe pod/liveness-http
+    ...
+
+    Liveness:       http-get http://:80/healthz delay=3s timeout=3s period=3s #success=1 #failure=5
+    ...
+    Warning  Unhealthy  16s (x11 over 52s)  kubelet, minikube  Liveness probe failed: HTTP probe failed with statuscode: 404
+
+Creamos un fichero, para que la prueba no falle:
+
+    kubectl exec pod/liveness-http -- sh -c 'mkdir /usr/share/nginx/html/healthz;echo "Ok" > /usr/share/nginx/html/healthz/index.html' 
+
+Comprobamos el funcionamiento del pod:
+
+    kubectl port-forward pod/liveness-http 8081:80
+
+## Ejemplo 7: Readlines probe
+
+    kubectl apply -f depoly_service.yaml
+
+Como no existe el fichero en ninguna replica, comprobamos que el servicio no tiene asociado ningún pod:
+
+    kubectl describe service/nginx-service
+    ...
+    Endpoints:                
+
+Creamos en el fichero en una replica, para que la prueba sea ok:
+
+    kubectl exec nginx-deployment-fcf86974b-62622 -- sh -c "touch /tmp/iamready”
+
+Y volvemos a comprobar el servicio:
+
+    kubectl describe service/nginx-service
+    ...
+    Endpoints:   172.17.0.2:80

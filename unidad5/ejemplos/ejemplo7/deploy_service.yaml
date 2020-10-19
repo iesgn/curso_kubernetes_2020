@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx   
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+      type: frontend  
+  template:
+    metadata:
+      labels:
+        app: nginx
+        type: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/iamready
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+    type: frontend
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
