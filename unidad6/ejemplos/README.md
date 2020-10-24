@@ -62,7 +62,7 @@ Creamos el usuario1 en el equipo de pruebas y ubicamos allí el
 certificado x509, la clave correspondiente y el certificado de la
 autoridad certificadora.
 
-# Configuración del acceso del usuario1
+### Configuración del acceso del usuario1
 
 Configuramos el cliente de kubernetes para que utilice las
 credenciales anteriores en el cluster "k8s-cluster", que creará el
@@ -206,3 +206,77 @@ Error from server (Forbidden): pods is forbidden: User "usuario1" cannot list re
 ```
 
 ¡No puede porque no tiene permiso para hacerlo!
+
+## Ejemplo3: Asignación de rol para usuario1 en proyecto1
+
+Creamos el rol "deployment-manager" en proyecto1:
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: proyecto1
+  name: deployment-manager
+rules:
+- apiGroups:
+    ["", # "" indicates the core API group
+    "extensions",
+    "apps"]
+  resources:
+    ["deployments",
+    "replicasets",
+    "pods"]
+  verbs:
+    ["get",
+    "list",
+    "watch",
+    "create",
+    "update",
+    "patch",
+    "delete"] # You can also use ["*"]
+```
+
+```
+kubectl apply -f https://raw.githubusercontent.com/iesgn/curso_kubernetes_2020/master/unidad6/ejemplos/ejemplo3/role-deployment-manager.yaml
+```
+
+Creamos el "rolebinding" para usuario1:
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deployment-manager-binding
+  namespace: proyecto1
+subjects:
+- kind: User
+  name: usuario1
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: deployment-manager
+  apiGroup: rbac.authorization.k8s.io
+```
+
+```
+kubectl apply -f https://raw.githubusercontent.com/iesgn/curso_kubernetes_2020/master/unidad6/ejemplos/ejemplo3/rolebinding-user-deployment-manager.yaml
+```
+
+En general, es más adecuado asignar roles a grupos, no a usuarios individuales:
+
+```
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deployment-manager-binding
+  namespace: proyecto1
+subjects:
+- kind: Group
+  name: desarrollo
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: deployment-manager
+  apiGroup: rbac.authorization.k8s.io
+```
