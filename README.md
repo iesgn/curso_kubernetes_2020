@@ -18,9 +18,7 @@
 [Unidad 3: Instalación de un cluster k8s](unidad3)
 
 * Arquitectura de k8s
-* Alternativas de instalación para un cluster de k8s
-* Proveedores cloud y kubernetes
-* Despliegue de un cluster con kubernetes
+* Despliegue paso a paso de un cluster con kubernetes
 
 [Unidad 4: Despliegue de aplicaciones con k8s (II)](unidad4)
 
@@ -42,11 +40,13 @@
 * PersistentVolumeClaim
 * Ejemplo de despliegue con volúmenes
 
-Unidad 6: Administración básica y redes
+[Unidad 6: Administración básica y redes](unidad6)
 
+* Alternativas de instalación para un cluster de k8s
 * Namespaces
 * Usuarios
 * RBAC
 * Cuotas y límites
-* Introducción a las redes en k8s
+* Políticas de red
+* Selección y uso de plugins para CNI
 
